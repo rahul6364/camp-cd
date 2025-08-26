@@ -17,7 +17,7 @@ pipeline{
         stage('update the deployment'){
             steps{
                 sh '''
-                sed -i 's#rahul6364/yelp-camp:.*#rahul6364/yelp-camp:${IMAGE_TAG}#' k8s/deployment.yaml
+                sed -i 's#rahul6364/yelp-camp:.*#rahul6364/yelp-camp:${IMAGE_TAG}#' k8s/deployment.yml
                 '''
             }
         }
