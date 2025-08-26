@@ -1,0 +1,38 @@
+pipeline{
+    agent any
+
+    parameters{
+        string(name: 'IMAGE_TAG', defaultValue: 'v1.0', description: 'tag of the docker image to deploy')
+    }
+
+    environment{
+
+    }
+
+    stages{
+        stage('clean the workspace'){
+            steps{
+                cleanWs()
+            }
+        }
+
+        stage('update the deployment'){
+            steps{
+                sh '''
+                sed -i 's#rahul6364/yelp-camp:.*#rahul6364/yelp-camp:${IMAGE_TAG}#' k8s/deployment.yaml
+                '''
+            }
+        }
+        stage('push the change of deployment to github'){
+            steps{
+                withCredentials([usernamePassword(credentialsId:'github',usernameVariable: 'USER',passwordVariable: 'PASS')]){
+                    git --config global.user.name=${USER}
+                    git --config global.user.email='rahul63643161@gmail.com'
+                    git add k8s/deployment.yaml
+                    git commit -m "updated the deployment.yml"
+                    git push https://${USER}:${PASS}@github.com/rahul6364/camp-cd.git main 
+                }
+            }
+        }
+    }
+}
