@@ -26,7 +26,7 @@ pipeline{
                 withCredentials([usernamePassword(credentialsId:'github',usernameVariable: 'USER',passwordVariable: 'PASS')]){
                     git config --global user.name 'rahul6364'
                     git config --global user.email 'rahul63643161@gmail.com'
-                    git add k8s/deployment.yaml
+                    git add k8s/deployment.yml
                     git commit -m "updated the deployment.yml"
                     git push https://${USER}:${PASS}@github.com/rahul6364/camp-cd.git main 
                 }
