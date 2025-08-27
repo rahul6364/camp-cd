@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: yelp-camp
-        image: rahul6364/yelp-camp:latest
+        image: rahul6364/yelp-camp:1.0.59
         ports:
         - containerPort: 3000
         env:
